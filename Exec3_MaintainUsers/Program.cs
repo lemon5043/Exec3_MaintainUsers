@@ -15,7 +15,9 @@ namespace Exec3_MaintainUsers
 			try
 			{
 				//Insert("小白", "white123", "password!", new DateTime(1997, 01, 15), 185);
-				selectAll();
+				//SelectAll();
+				//Update("小白z", "white1234", "password", new DateTime(1996, 01, 15), 186, 1);
+				Delete(2);
 			}
 			catch (Exception ex)
 			{
@@ -44,7 +46,7 @@ namespace Exec3_MaintainUsers
 			Console.WriteLine("資料已新增");
 		}
 
-		static void selectAll()
+		static void SelectAll()
 		{
 			string sql = @"select * from users";
 			var dbHelper = new SqlDbHelper("default");
@@ -68,6 +70,43 @@ namespace Exec3_MaintainUsers
 			
 		}
 
+		static void Update(string name, string account, string password, DateTime dateOfBirth, int height, int Id)
+		{
+			string sql = @"UPDATE Users
+						SET name = @name,
+						account = @account,
+						password = @password,
+						dateOfBirth = @dateOfBirth,
+						height = @height
+						where Id = @Id";
+			var dbHelper = new SqlDbHelper("default");
 
+			var parameters = new SqlParameterBuilder()
+					.AddVarchar("@Name", 50, name)
+					.AddVarchar("@Account", 50, account)
+					.AddVarchar("@password", 50, password)
+					.AddDateTime("@dateOfBirth", dateOfBirth)
+					.AddInt("@height", height)
+					.AddInt("@Id", Id)
+					.Build();
+
+				dbHelper.ExecuteNonQuery(sql, parameters);
+				Console.WriteLine("紀錄已更新");
+		}
+
+		static void Delete(int Id)
+		{
+			string sql = @"DELETE 
+						from Users
+						where Id = @Id";
+			var dbHelper = new SqlDbHelper("default");
+
+			var parameters = new SqlParameterBuilder()
+				.AddInt("ID", Id)
+				.Build();
+
+				dbHelper.ExecuteNonQuery(sql, parameters);
+				Console.WriteLine("紀錄已刪除");
+		}
 	}
 }
