@@ -15,9 +15,9 @@ namespace Exec3_MaintainUsers
 			try
 			{
 				//Insert("小白", "white123", "password!", new DateTime(1997, 01, 15), 185);
-				//SelectAll();
+				SelectAll();
 				//Update("小白z", "white1234", "password", new DateTime(1996, 01, 15), 186, 1);
-				Delete(2);
+				//Delete(2);
 			}
 			catch (Exception ex)
 			{
